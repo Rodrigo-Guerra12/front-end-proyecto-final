@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https://qph.cf2.quoracdn.net/main-qimg-729a22aba98d1235fdce4883accaf81e"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Github Api Fetch</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+  <script>
+    const titleElement = document.querySelector("title"); // Selecciona el elemento de título
+
+    const titles = ["Github Api Fetch", "Entregable Rodrigo Guerra"];
+    let currentIndex = 0;
+
+    function changeTitle() {
+      titleElement.innerText = titles[currentIndex];
+      currentIndex = (currentIndex + 1) % titles.length;
+    }
+
+    const interval = setInterval(changeTitle, 1000);
+  </script>
+</html>

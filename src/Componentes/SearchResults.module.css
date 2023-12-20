@@ -1,0 +1,19 @@
+.descriptionstyle {
+  display: flex;
+  flex-direction: column;
+}
+
+.imgstyle {
+  border-radius: 10rem;
+  margin: 1vh;
+  width: 5rem;
+  height: 5rem;
+}
+
+.hoverCard:hover {
+  scale: 1.1;
+}
+
+a {
+  align-self: center;
+}
