@@ -12,6 +12,7 @@ function SearchBar() {
   const [searchResults, setSearchResults] = useState(null); //Manejo de estados del componente segun las peticiones del usuario
   const [isSearchingRepos, setIsSearchingRepos] = useState(true);
   console.log("Cambia el switch, ", isSearchingRepos);
+
   const handleSearch = async () => {
     // Construye la URL de búsqueda con los parámetros de consulta y paginación. Es async por que se necesita esperar por los datos.
     // const apiUrl = `https://api.github.com/search/repositories?q=${searchTerm}&page=${currentPage}&per_page=${itemsPerPage}`;
@@ -51,7 +52,12 @@ function SearchBar() {
     handleSearch();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, isSearchingRepos]);
+  }, [currentPage]);
+
+  useEffect(() => {
+    setSearchTerm("");
+    setSearchResults([]);
+  }, [isSearchingRepos]);
 
   return (
     //Contenido que va a mostrar el componente

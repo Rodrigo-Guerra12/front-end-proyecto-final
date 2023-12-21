@@ -72,3 +72,8 @@ li {
   list-style: none;
   font-size: 12px;
 }
+
+.list {
+  display: flex;
+  flex-direction: column;
+}

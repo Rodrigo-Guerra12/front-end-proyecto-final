@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
 }
+strong {
+  margin: 4px;
+}
 
 .imgstyle {
   border-radius: 10rem;

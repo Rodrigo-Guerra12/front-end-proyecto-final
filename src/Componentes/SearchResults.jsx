@@ -48,7 +48,6 @@ function SearchResults({ results, isSearchingRepos }) {
                           <div className={classes.descriptionstyle}>
                             <strong>Nombre de Usuario:</strong>{" "}
                             {result?.owner?.login}
-                            {/* <strong>Descripción:</strong> {result.description}{" "} */}
                             <strong>Fecha de creacion:</strong>
                             {result?.created_at}
                             <strong>Estrellas:</strong>{" "}
@@ -82,8 +81,36 @@ function SearchResults({ results, isSearchingRepos }) {
                         width="50"
                         height="50"
                       />
-                      <strong>Name:</strong> {result?.login}
-                      <strong>Score:</strong> {result?.score}
+
+                      <a
+                        href={`https://github.com/${result?.login}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al perfil de {result.login}
+                      </a>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        onClick={() => toggleDescription(index)}
+                      >
+                        {showDescription === index ? "Ocultar" : "Más"}
+                      </Button>
+                      {showDescription === index ? (
+                        <>
+                          <div className={classes.descriptionstyle}>
+                            <strong>Nombre de Usuario:</strong> {result?.login}
+                            <a
+                              href={`https://github.com/${result?.login}?tab=repositories`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Ver los repos de {result.login}
+                            </a>
+                          </div>
+                          <br />
+                        </>
+                      ) : null}
                     </li>
                   )}
                 </Card>
