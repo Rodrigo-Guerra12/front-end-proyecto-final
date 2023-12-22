@@ -4,6 +4,7 @@ import classes from "./SearchBar.module.css";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import SwitchSearch from "./SwitchSearch";
+import { QueriesList } from "./QueriesList";
 
 //Importo dependencias
 function SearchBar() {
@@ -11,12 +12,47 @@ function SearchBar() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchResults, setSearchResults] = useState(null); //Manejo de estados del componente segun las peticiones del usuario
   const [isSearchingRepos, setIsSearchingRepos] = useState(true);
-  console.log("Cambia el switch, ", isSearchingRepos);
+  const [queryList, setQueryList] = useState([]);
+  const deleteQuery = (id) => {
+    const filteredQueryList = queryList.filter((query) => id !== query._id);
+    setQueryList(filteredQueryList);
+  };
+  const deleteQueryClick = async (query) => {
+    if (query) {
+      const urlDelete = `http://localhost:3000/api/queries/${query._id}`;
+      console.log("urlDelete, ", query);
+      try {
+        const response = await fetch(urlDelete, { method: "Delete" });
+        if (response.ok) {
+          deleteQuery(query._id);
+        }
+      } catch (error) {
+        console.log("Error:  ", error.message);
+      }
+    }
+  };
+
+  const urlQuery = `http://localhost:3000/api/queries/`;
+  const fetchQueries = async () => {
+    try {
+      const response = await fetch(urlQuery);
+      const data = await response.json();
+      setQueryList(data);
+    } catch (error) {
+      console.log("Error:  ", error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchQueries();
+    // eslint-disable-next-line no-undef, react-hooks/exhaustive-deps
+  }, [searchResults]);
 
   const handleSearch = async () => {
     // Construye la URL de búsqueda con los parámetros de consulta y paginación. Es async por que se necesita esperar por los datos.
     // const apiUrl = `https://api.github.com/search/repositories?q=${searchTerm}&page=${currentPage}&per_page=${itemsPerPage}`;
     //Le pego a la url completada por los datos que ingreso el usuario
+
     const url1 = `http://localhost:3000/api/${
       isSearchingRepos ? "repo-info" : "users-info"
     }?name=${searchTerm}`;
@@ -89,6 +125,11 @@ function SearchBar() {
               Buscar
             </Button>
           </div>
+          <h2>Historial de Queries</h2>
+          <QueriesList
+            queries={queryList}
+            handleQueryClick={deleteQueryClick}
+          />
         </div>
 
         <SearchResults
