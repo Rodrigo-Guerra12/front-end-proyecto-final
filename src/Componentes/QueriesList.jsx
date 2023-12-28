@@ -35,14 +35,6 @@ export const QueriesList = ({ queries, handleQueryClick }) => {
                   Borrar
                 </Button>
                 <br />
-                <Button
-                  size="small"
-                  variant="contained"
-                  onClick={() => handleQueryClick(query)}
-                >
-                  {" "}
-                  Modificar
-                </Button>
               </li>
             ))}
           </ul>
